@@ -17,6 +17,39 @@ const DeliveryTab = () => {
       </div>
 
       <div className="grid gap-6 lg:grid-cols-2">
+        {/* Writing Style */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Settings className="h-5 w-5" />
+              Writing Style Training
+            </CardTitle>
+            <CardDescription>Upload your best scripts to train the AI</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="border-2 border-dashed border-muted-foreground/25 rounded-lg p-6 text-center">
+              <FileText className="h-8 w-8 mx-auto mb-2 text-muted-foreground" />
+              <p className="text-sm font-medium">Upload your top 20 scripts</p>
+              <p className="text-xs text-muted-foreground mb-3">Drag & drop files or click to browse</p>
+              <Button variant="outline" size="sm">Choose Files</Button>
+            </div>
+
+            <div className="space-y-2">
+              <div className="flex justify-between text-sm">
+                <span>Training Progress</span>
+                <span>12/20 scripts uploaded</span>
+              </div>
+              <div className="h-2 bg-muted rounded-full">
+                <div className="h-2 bg-primary rounded-full w-3/5"></div>
+              </div>
+            </div>
+
+            <Button className="w-full" disabled>
+              Train Writing Style (8 more needed)
+            </Button>
+          </CardContent>
+        </Card>
+
         {/* Schedule Settings */}
         <Card>
           <CardHeader>
@@ -140,39 +173,6 @@ const DeliveryTab = () => {
                 </SelectContent>
               </Select>
             </div>
-          </CardContent>
-        </Card>
-
-        {/* Writing Style */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Settings className="h-5 w-5" />
-              Writing Style Training
-            </CardTitle>
-            <CardDescription>Upload your best scripts to train the AI</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="border-2 border-dashed border-muted-foreground/25 rounded-lg p-6 text-center">
-              <FileText className="h-8 w-8 mx-auto mb-2 text-muted-foreground" />
-              <p className="text-sm font-medium">Upload your top 20 scripts</p>
-              <p className="text-xs text-muted-foreground mb-3">Drag & drop files or click to browse</p>
-              <Button variant="outline" size="sm">Choose Files</Button>
-            </div>
-
-            <div className="space-y-2">
-              <div className="flex justify-between text-sm">
-                <span>Training Progress</span>
-                <span>12/20 scripts uploaded</span>
-              </div>
-              <div className="h-2 bg-muted rounded-full">
-                <div className="h-2 bg-primary rounded-full w-3/5"></div>
-              </div>
-            </div>
-
-            <Button className="w-full" disabled>
-              Train Writing Style (8 more needed)
-            </Button>
           </CardContent>
         </Card>
       </div>
