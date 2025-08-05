@@ -11,7 +11,12 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-const Navigation = () => {
+interface NavigationProps {
+  activeTab: string;
+  onTabChange: (tab: string) => void;
+}
+
+const Navigation = ({ activeTab, onTabChange }: NavigationProps) => {
   return (
     <nav className="border-b border-vercel-border bg-background">
       <div className="flex h-16 items-center px-6">
@@ -44,19 +49,39 @@ const Navigation = () => {
 
         {/* Navigation Links */}
         <div className="flex items-center space-x-6 ml-8">
-          <Button variant="ghost" className="text-sm font-medium">
+          <Button 
+            variant="ghost" 
+            className={`text-sm ${activeTab === 'overview' ? 'font-medium text-foreground' : 'text-muted-foreground hover:text-foreground'}`}
+            onClick={() => onTabChange('overview')}
+          >
             Overview
           </Button>
-          <Button variant="ghost" className="text-sm text-muted-foreground hover:text-foreground">
+          <Button 
+            variant="ghost" 
+            className={`text-sm ${activeTab === 'sources' ? 'font-medium text-foreground' : 'text-muted-foreground hover:text-foreground'}`}
+            onClick={() => onTabChange('sources')}
+          >
             Sources
           </Button>
-          <Button variant="ghost" className="text-sm text-muted-foreground hover:text-foreground">
+          <Button 
+            variant="ghost" 
+            className={`text-sm ${activeTab === 'delivery' ? 'font-medium text-foreground' : 'text-muted-foreground hover:text-foreground'}`}
+            onClick={() => onTabChange('delivery')}
+          >
             Delivery
           </Button>
-          <Button variant="ghost" className="text-sm text-muted-foreground hover:text-foreground">
+          <Button 
+            variant="ghost" 
+            className={`text-sm ${activeTab === 'analytics' ? 'font-medium text-foreground' : 'text-muted-foreground hover:text-foreground'}`}
+            onClick={() => onTabChange('analytics')}
+          >
             Analytics
           </Button>
-          <Button variant="ghost" className="text-sm text-muted-foreground hover:text-foreground">
+          <Button 
+            variant="ghost" 
+            className={`text-sm ${activeTab === 'settings' ? 'font-medium text-foreground' : 'text-muted-foreground hover:text-foreground'}`}
+            onClick={() => onTabChange('settings')}
+          >
             Settings
           </Button>
         </div>
