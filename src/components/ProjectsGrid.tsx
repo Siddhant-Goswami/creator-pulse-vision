@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Search, Filter, Grid3X3, List, Plus } from "lucide-react";
+import { Search, Filter, Grid3X3, List, Plus, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
@@ -57,7 +57,8 @@ const ProjectsGrid = () => {
       {/* Header */}
       <div className="flex items-center justify-between">
         <h3 className="text-lg font-semibold flex items-center gap-2">
-          📄 Recent Drafts
+          <FileText className="w-5 h-5" />
+          Recent Drafts
         </h3>
         
       </div>
