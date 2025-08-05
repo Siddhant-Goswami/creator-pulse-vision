@@ -1,224 +1,240 @@
-import { TrendingUp, Eye, Clock, CheckCircle, BarChart3, Calendar } from "lucide-react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
+import { Globe, Shield, AlertTriangle, MessageSquare, Code, Ban } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { LineChart, Line, XAxis, YAxis, ResponsiveContainer } from 'recharts';
 
 const AnalyticsTab = () => {
-  const topicsData = [
+  // Sample chart data
+  const chartData = [
+    { time: '19:21:00', value: 2 },
+    { time: '19:26:00', value: 1 },
+    { time: '19:31:00', value: 0 },
+    { time: '19:36:00', value: 3 },
+    { time: '19:41:00', value: 1 },
+    { time: '19:46:00', value: 0 },
+    { time: '19:51:00', value: 2 },
+    { time: '19:56:00', value: 95 },
+    { time: '20:01:00', value: 1 },
+    { time: '20:06:00', value: 0 },
+    { time: '20:11:00', value: 2 },
+    { time: '20:16:00', value: 4 },
+    { time: '20:21:00', value: 1 },
+  ];
+
+  const systemActivities = [
     {
       id: 1,
-      topic: "AI Video Generation Tools",
-      suggestedDate: "2024-01-15",
-      status: "published",
-      views: 156000,
-      uplift: "+34%",
-      engagement: "8.2%"
+      name: "Allowed Requests",
+      action: "allow",
+      color: "bg-blue-500",
+      count: 0
     },
     {
       id: 2,
-      topic: "Meta's New AR Glasses",
-      suggestedDate: "2024-01-12",
-      status: "published",
-      views: 89000,
-      uplift: "+12%",
-      engagement: "6.7%"
+      name: "DDoS Mitigation",
+      action: "deny",
+      color: "bg-green-500",
+      count: 0
     },
     {
       id: 3,
-      topic: "GitHub Copilot Updates",
-      suggestedDate: "2024-01-10",
-      status: "rejected",
-      views: 0,
-      uplift: "N/A",
-      engagement: "N/A"
+      name: "BotID",
+      action: "allow",
+      color: "bg-purple-500",
+      count: 0
     },
     {
       id: 4,
-      topic: "Tesla FSD Beta Review",
-      suggestedDate: "2024-01-08",
-      status: "published",
-      views: 234000,
-      uplift: "+67%",
-      engagement: "9.1%"
+      name: "Challenge Mode",
+      action: "challenge",
+      color: "bg-orange-500",
+      count: 0
+    },
+    {
+      id: 5,
+      name: "IP Blocking",
+      action: "deny",
+      color: "bg-teal-500",
+      count: 0
     }
   ];
-
-  const getStatusBadge = (status: string) => {
-    switch (status) {
-      case "published":
-        return <Badge className="bg-green-100 text-green-800 border-green-200">Published</Badge>;
-      case "rejected":
-        return <Badge variant="secondary">Rejected</Badge>;
-      default:
-        return <Badge variant="outline">Pending</Badge>;
-    }
-  };
 
   return (
     <div className="space-y-6">
       {/* Header */}
       <div className="flex items-center justify-between">
-        <div>
-          <h2 className="text-2xl font-semibold tracking-tight">Analytics</h2>
-          <p className="text-muted-foreground">Track performance of CreatorPulse-suggested topics</p>
+        <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2">
+            <Shield className="h-5 w-5 text-blue-500" />
+            <span className="text-sm">Firewall is active</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <Shield className="h-5 w-5 text-gray-400" />
+            <span className="text-sm">Enable Bot Protection</span>
+          </div>
         </div>
         <div className="flex items-center gap-2">
-          <Select defaultValue="30">
+          <Select defaultValue="overview">
             <SelectTrigger className="w-40">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="7">Last 7 days</SelectItem>
-              <SelectItem value="30">Last 30 days</SelectItem>
-              <SelectItem value="90">Last 90 days</SelectItem>
+              <SelectItem value="overview">Overview</SelectItem>
+              <SelectItem value="detailed">Detailed</SelectItem>
+            </SelectContent>
+          </Select>
+          <Select defaultValue="category">
+            <SelectTrigger className="w-48">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="category">Group by Category</SelectItem>
+              <SelectItem value="type">Group by Type</SelectItem>
+            </SelectContent>
+          </Select>
+          <Select defaultValue="hour">
+            <SelectTrigger className="w-32">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="hour">Past Hour</SelectItem>
+              <SelectItem value="day">Past Day</SelectItem>
+              <SelectItem value="week">Past Week</SelectItem>
             </SelectContent>
           </Select>
         </div>
       </div>
 
       {/* Key Metrics */}
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Topics Accepted</CardTitle>
-            <CheckCircle className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">18</div>
-            <p className="text-xs text-muted-foreground">+2 from last month</p>
+      <div className="grid gap-4 md:grid-cols-6">
+        <Card className="hover:border-primary transition-colors">
+          <CardContent className="p-4">
+            <div className="flex items-center gap-3">
+              <Globe className="h-5 w-5 text-muted-foreground" />
+              <div>
+                <p className="text-sm text-muted-foreground">All Traffic</p>
+                <p className="text-2xl font-bold">212</p>
+              </div>
+            </div>
           </CardContent>
         </Card>
 
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Avg Views Uplift</CardTitle>
-            <TrendingUp className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">+28%</div>
-            <p className="text-xs text-muted-foreground">vs your baseline</p>
+        <Card className="hover:border-primary transition-colors">
+          <CardContent className="p-4">
+            <div className="flex items-center gap-3">
+              <Shield className="h-5 w-5 text-green-600" />
+              <div>
+                <p className="text-sm text-muted-foreground">Allowed</p>
+                <p className="text-2xl font-bold">114</p>
+              </div>
+            </div>
           </CardContent>
         </Card>
 
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Research Time Saved</CardTitle>
-            <Clock className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">4.2h</div>
-            <p className="text-xs text-muted-foreground">per accepted topic</p>
+        <Card className="hover:border-primary transition-colors">
+          <CardContent className="p-4">
+            <div className="flex items-center gap-3">
+              <Ban className="h-5 w-5 text-red-600" />
+              <div>
+                <p className="text-sm text-muted-foreground">Denied</p>
+                <p className="text-2xl font-bold">98</p>
+              </div>
+            </div>
           </CardContent>
         </Card>
 
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Views</CardTitle>
-            <Eye className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">1.2M</div>
-            <p className="text-xs text-muted-foreground">from suggested topics</p>
+        <Card className="hover:border-primary transition-colors">
+          <CardContent className="p-4">
+            <div className="flex items-center gap-3">
+              <AlertTriangle className="h-5 w-5 text-orange-600" />
+              <div>
+                <p className="text-sm text-muted-foreground">Challenged</p>
+                <p className="text-2xl font-bold">-</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="hover:border-primary transition-colors">
+          <CardContent className="p-4">
+            <div className="flex items-center gap-3">
+              <Code className="h-5 w-5 text-purple-600" />
+              <div>
+                <p className="text-sm text-muted-foreground">Logged</p>
+                <p className="text-2xl font-bold">-</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="hover:border-primary transition-colors">
+          <CardContent className="p-4">
+            <div className="flex items-center gap-3">
+              <MessageSquare className="h-5 w-5 text-blue-600" />
+              <div>
+                <p className="text-sm text-muted-foreground">Rate Limited</p>
+                <p className="text-2xl font-bold">-</p>
+              </div>
+            </div>
           </CardContent>
         </Card>
       </div>
 
-      {/* Analytics Tabs */}
-      <Tabs defaultValue="topics" className="space-y-4">
-        <TabsList>
-          <TabsTrigger value="topics">Topic Performance</TabsTrigger>
-          <TabsTrigger value="trends">Trend Analysis</TabsTrigger>
-          <TabsTrigger value="efficiency">Efficiency Metrics</TabsTrigger>
-        </TabsList>
+      {/* Chart */}
+      <Card>
+        <CardContent className="p-6">
+          <div className="h-64">
+            <ResponsiveContainer width="100%" height="100%">
+              <LineChart data={chartData}>
+                <XAxis 
+                  dataKey="time" 
+                  axisLine={false}
+                  tickLine={false}
+                  tick={{ fontSize: 12, fill: '#6b7280' }}
+                />
+                <YAxis 
+                  axisLine={false}
+                  tickLine={false}
+                  tick={{ fontSize: 12, fill: '#6b7280' }}
+                />
+                <Line 
+                  type="monotone" 
+                  dataKey="value" 
+                  stroke="#3b82f6" 
+                  strokeWidth={2}
+                  dot={false}
+                />
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
+        </CardContent>
+      </Card>
 
-        <TabsContent value="topics" className="space-y-4">
-          <Card>
-            <CardHeader>
-              <CardTitle>Suggested Topics Performance</CardTitle>
-              <CardDescription>Track how your published videos performed compared to your baseline</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                {topicsData.map((topic) => (
-                  <div key={topic.id} className="flex items-center justify-between p-4 border rounded-lg">
-                    <div className="space-y-1">
-                      <div className="flex items-center gap-2">
-                        <h4 className="font-medium">{topic.topic}</h4>
-                        {getStatusBadge(topic.status)}
-                      </div>
-                      <p className="text-sm text-muted-foreground">Suggested on {topic.suggestedDate}</p>
-                    </div>
-                    <div className="text-right space-y-1">
-                      <div className="flex items-center gap-4">
-                        <div>
-                          <p className="text-sm font-medium">{topic.views.toLocaleString()} views</p>
-                          <p className="text-xs text-muted-foreground">Engagement: {topic.engagement}</p>
-                        </div>
-                        <div className="text-right">
-                          <p className={`text-sm font-medium ${topic.uplift.includes('+') ? 'text-green-600' : 'text-muted-foreground'}`}>
-                            {topic.uplift}
-                          </p>
-                          <p className="text-xs text-muted-foreground">vs baseline</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
+      {/* System Activities */}
+      <div className="space-y-4">
+        <h3 className="text-lg font-semibold">System</h3>
+        <div className="space-y-2">
+          {systemActivities.map((activity) => (
+            <div key={activity.id} className="flex items-center justify-between p-3 border rounded-lg hover:border-primary transition-colors">
+              <div className="flex items-center gap-3">
+                <div className={`w-2 h-2 rounded-full ${activity.color}`}></div>
+                <span className="font-medium">{activity.name}</span>
+                <span className="text-sm text-muted-foreground">{activity.action}</span>
               </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        <TabsContent value="trends" className="space-y-4">
-          <Card>
-            <CardHeader>
-              <CardTitle>Trend Success Rate</CardTitle>
-              <CardDescription>How well our trend predictions performed</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="h-64 flex items-center justify-center text-muted-foreground">
-                <div className="text-center">
-                  <BarChart3 className="h-8 w-8 mx-auto mb-2" />
-                  <p>Trend analysis chart would go here</p>
-                </div>
+              <div className="flex items-center gap-3">
+                <span className="text-sm">{activity.count}</span>
+                <button className="text-muted-foreground hover:text-foreground">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <circle cx="12" cy="12" r="1"></circle>
+                    <circle cx="19" cy="12" r="1"></circle>
+                    <circle cx="5" cy="12" r="1"></circle>
+                  </svg>
+                </button>
               </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        <TabsContent value="efficiency" className="space-y-4">
-          <Card>
-            <CardHeader>
-              <CardTitle>Efficiency Metrics</CardTitle>
-              <CardDescription>Time savings and productivity improvements</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                <div className="grid gap-4 md:grid-cols-2">
-                  <div className="p-4 border rounded-lg">
-                    <div className="flex items-center gap-2 mb-2">
-                      <Clock className="h-4 w-4" />
-                      <h4 className="font-medium">Research Time</h4>
-                    </div>
-                    <p className="text-2xl font-bold">4.2 hours</p>
-                    <p className="text-sm text-muted-foreground">Average saved per topic</p>
-                  </div>
-                  <div className="p-4 border rounded-lg">
-                    <div className="flex items-center gap-2 mb-2">
-                      <Calendar className="h-4 w-4" />
-                      <h4 className="font-medium">Publishing Frequency</h4>
-                    </div>
-                    <p className="text-2xl font-bold">2.3x</p>
-                    <p className="text-sm text-muted-foreground">Increase since using CreatorPulse</p>
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
-      </Tabs>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 };
