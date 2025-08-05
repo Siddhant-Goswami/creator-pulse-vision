@@ -91,83 +91,87 @@ const AnalyticsTab = () => {
       <div className="grid gap-6 lg:grid-cols-2">
         {/* Agent Experience Score */}
         <Card className="p-6">
-          <div className="space-y-4">
-            <h3 className="text-xl font-semibold">Agent Experience Score</h3>
-            <div className="flex items-start gap-6">
-              <div className="flex flex-col items-center space-y-2">
-                <div className="relative w-16 h-16">
-                  <svg className="w-16 h-16 -rotate-90" viewBox="0 0 36 36">
-                    <circle
-                      cx="18"
-                      cy="18"
-                      r="16"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="3"
-                      className="text-muted/20"
-                    />
-                    <circle
-                      cx="18"
-                      cy="18"
-                      r="16"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="3"
-                      strokeDasharray="75.4"
-                      strokeDashoffset="15.08"
-                      className="text-green-500"
-                    />
-                  </svg>
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <span className="text-2xl font-bold">85</span>
-                  </div>
+          <div className="space-y-6 text-center">
+            <div className="flex flex-col items-center space-y-4">
+              <div className="relative w-20 h-20">
+                <svg className="w-20 h-20 -rotate-90" viewBox="0 0 36 36">
+                  <circle
+                    cx="18"
+                    cy="18"
+                    r="16"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="3"
+                    className="text-muted/20"
+                  />
+                  <circle
+                    cx="18"
+                    cy="18"
+                    r="16"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="3"
+                    strokeDasharray="75.4"
+                    strokeDashoffset="15.08"
+                    className="text-green-500"
+                  />
+                </svg>
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <span className="text-2xl font-bold">85</span>
                 </div>
               </div>
               
-              <div className="flex-1 space-y-3">
-                <div>
-                  <div className="flex items-center gap-2 mb-1">
-                    <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                    <span className="font-medium text-green-700">Great</span>
-                  </div>
-                  <p className="text-sm text-muted-foreground">Above 80</p>
-                </div>
-                
-                <p className="text-sm text-muted-foreground">
-                  89% of suggestions had great performance. To provide better topic suggestions, aim for a score above 90.
+              <div>
+                <h3 className="text-xl font-semibold mb-2">Agent Experience Score</h3>
+                <p className="text-sm text-muted-foreground max-w-sm">
+                  Values are estimated and may vary. The <span className="text-blue-600">agent score is calculated</span> directly from these metrics.
                 </p>
               </div>
             </div>
             
-            {/* Performance Breakdown */}
-            <div className="space-y-3 pt-4 border-t">
-              <div className="flex justify-between items-center text-xs">
-                <span className="flex items-center gap-2">
-                  <div className="w-2 h-2 bg-red-500 rounded-full"></div>
-                  Poor (&lt;50)
-                </span>
-                <span className="flex items-center gap-2">
-                  <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
-                  Needs Improvement (50-80)
-                </span>
-                <span className="flex items-center gap-2">
-                  <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                  Great (&gt;80)
-                </span>
-              </div>
+            {/* Performance Categories */}
+            <div className="flex justify-center items-center gap-6 text-xs">
+              <span className="flex items-center gap-2">
+                <div className="w-0 h-0 border-l-[4px] border-r-[4px] border-b-[6px] border-l-transparent border-r-transparent border-b-red-500"></div>
+                0–49
+              </span>
+              <span className="flex items-center gap-2">
+                <div className="w-3 h-3 bg-orange-500"></div>
+                50–89
+              </span>
+              <span className="flex items-center gap-2">
+                <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                90–100
+              </span>
+            </div>
+            
+            {/* Metrics */}
+            <div className="text-left space-y-4">
+              <h4 className="text-sm font-medium text-muted-foreground uppercase tracking-wide">METRICS</h4>
               
-              <div className="space-y-2">
-                <div className="flex items-center justify-between text-sm">
-                  <span>Topic Relevance</span>
-                  <span className="font-medium">18 <span className="text-xs text-muted-foreground">• 90</span></span>
+              <div className="space-y-3">
+                <div className="flex items-center gap-3">
+                  <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                  <div className="flex-1">
+                    <p className="text-sm font-medium">Topic Relevance</p>
+                    <p className="text-lg font-bold text-green-600">90</p>
+                  </div>
                 </div>
-                <div className="flex items-center justify-between text-sm">
-                  <span>Engagement Rate</span>
-                  <span className="font-medium">12 <span className="text-xs text-muted-foreground">• 82</span></span>
+                
+                <div className="flex items-center gap-3">
+                  <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                  <div className="flex-1">
+                    <p className="text-sm font-medium">Engagement Rate</p>
+                    <p className="text-lg font-bold text-green-600">82</p>
+                  </div>
                 </div>
-                <div className="flex items-center justify-between text-sm">
-                  <span>Trend Accuracy</span>
-                  <span className="font-medium">8 <span className="text-xs text-muted-foreground">• 78</span></span>
+                
+                <div className="flex items-center gap-3">
+                  <div className="w-3 h-3 bg-orange-500"></div>
+                  <div className="flex-1">
+                    <p className="text-sm font-medium">Trend Accuracy</p>
+                    <p className="text-lg font-bold text-orange-600">78</p>
+                  </div>
                 </div>
               </div>
             </div>
