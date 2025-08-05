@@ -71,107 +71,74 @@ const ProjectsGrid = () => {
     <div className="space-y-6">
       {/* Header */}
       <div className="flex items-center justify-between">
-        <div className="space-y-1">
-          <h1 className="text-2xl font-bold">Projects</h1>
-          <p className="text-muted-foreground">
-            Manage your CreatorPulse projects and drafts
-          </p>
-        </div>
-        <Dialog>
-          <DialogTrigger asChild>
-            <Button className="bg-foreground hover:bg-foreground/90 text-background">
-              <Plus className="mr-2 h-4 w-4" />
-              Add New...
-            </Button>
-          </DialogTrigger>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>Create New Project</DialogTitle>
-              <DialogDescription>
-                Start a new CreatorPulse project to generate content and analyze trends.
-              </DialogDescription>
-            </DialogHeader>
-            <div className="space-y-4">
-              <div className="flex gap-2">
-                <Input 
-                  placeholder="Enter project name..." 
-                  value={newProjectName}
-                  onChange={(e) => setNewProjectName(e.target.value)}
-                  className="flex-1" 
-                />
-                <Button onClick={handleCreateProject}>Create</Button>
+        <h3 className="text-lg font-semibold flex items-center gap-2">
+          📄 Recent Drafts
+        </h3>
+        <Button variant="ghost" size="sm" className="text-vercel-blue hover:text-vercel-blue/80">
+          View All
+        </Button>
+      </div>
+
+      {/* Recent Drafts List */}
+      <div className="space-y-4">
+        {[
+          {
+            title: "10 AI Tools Every YouTuber Needs",
+            status: "accepted",
+            views: "12-18K views",
+            type: "List Video",
+            category: "AI Tools",
+            time: "2 hours ago"
+          },
+          {
+            title: "The Future of Content Creation",
+            status: "pending",
+            views: "8-12K views",
+            type: "Discussion",
+            category: "Industry Trends",
+            time: "5 hours ago"
+          },
+          {
+            title: "YouTube Algorithm Changes 2024",
+            status: "rejected",
+            views: "15-25K views",
+            type: "Educational",
+            category: "Platform Updates",
+            time: "1 day ago"
+          }
+        ].map((draft, index) => (
+          <div key={index} className="p-4 border border-vercel-border rounded-lg hover:bg-muted/50 transition-colors">
+            <div className="flex items-start justify-between">
+              <div className="flex-1">
+                <div className="flex items-center gap-2 mb-2">
+                  <h4 className="font-medium text-sm">{draft.title}</h4>
+                  <span className={`text-xs px-2 py-1 rounded-full ${
+                    draft.status === 'accepted' ? 'bg-success/10 text-success' :
+                    draft.status === 'pending' ? 'bg-warning/10 text-warning' :
+                    'bg-destructive/10 text-destructive'
+                  }`}>
+                    {draft.status}
+                  </span>
+                </div>
+                <div className="flex items-center gap-4 text-xs text-muted-foreground">
+                  <span className="flex items-center gap-1">
+                    📊 {draft.views}
+                  </span>
+                  <span className="flex items-center gap-1">
+                    🎬 {draft.type}
+                  </span>
+                  <span className="flex items-center gap-1">
+                    🏷️ {draft.category}
+                  </span>
+                </div>
+                <p className="text-xs text-muted-foreground mt-1">{draft.time}</p>
               </div>
-            </div>
-          </DialogContent>
-        </Dialog>
-      </div>
-
-      {/* Filters and Search */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center space-x-4">
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-            <Input
-              placeholder="Search Projects..."
-              className="w-80 pl-9 border-vercel-border"
-            />
-          </div>
-          
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="outline" className="border-vercel-border">
-                <Filter className="mr-2 h-4 w-4" />
-                Filter
+              <Button variant="ghost" size="sm" className="text-vercel-blue hover:text-vercel-blue/80">
+                View Draft
               </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="start">
-              <DropdownMenuItem>All Projects</DropdownMenuItem>
-              <DropdownMenuItem>Ready</DropdownMenuItem>
-              <DropdownMenuItem>Building</DropdownMenuItem>
-              <DropdownMenuItem>Error</DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
-
-        <div className="flex items-center space-x-2">
-          <Button
-            variant={viewMode === "grid" ? "secondary" : "ghost"}
-            size="icon"
-            onClick={() => setViewMode("grid")}
-            className={viewMode === "grid" ? "bg-muted border-vercel-border" : "border-vercel-border hover:bg-muted/50"}
-          >
-            <Grid3X3 className="h-4 w-4" />
-          </Button>
-          <Button
-            variant={viewMode === "list" ? "secondary" : "ghost"}
-            size="icon"
-            onClick={() => setViewMode("list")}
-            className={viewMode === "list" ? "bg-muted border-vercel-border" : "border-vercel-border hover:bg-muted/50"}
-          >
-            <List className="h-4 w-4" />
-          </Button>
-        </div>
-      </div>
-
-      {/* Projects Grid */}
-      <div className={
-        viewMode === "grid" 
-          ? "grid grid-cols-1 md:grid-cols-2 gap-4" 
-          : "space-y-4"
-      }>
-        {projects.map((project, index) => (
-          <ProjectCard key={index} {...project} />
+            </div>
+          </div>
         ))}
-      </div>
-
-      {/* Pagination */}
-      <div className="flex items-center justify-center pt-4">
-        <div className="flex items-center space-x-2 text-sm text-muted-foreground">
-          <span>1 of 1</span>
-          <Button variant="ghost" size="sm" disabled>
-            →
-          </Button>
-        </div>
       </div>
     </div>
   );
