@@ -88,7 +88,7 @@ const AnalyticsTab = () => {
       </div>
 
       {/* Key Metrics */}
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-5">
         <Card className="p-6">
           <div className="flex items-center justify-between">
             <div>
@@ -142,6 +142,46 @@ const AnalyticsTab = () => {
               </div>
             </div>
             <Eye className="h-8 w-8 text-muted-foreground" />
+          </div>
+        </Card>
+
+        <Card className="p-6">
+          <div className="space-y-3">
+            <p className="text-sm font-medium text-muted-foreground">Agent Experience Score</p>
+            <div className="flex items-center gap-3">
+              <div className="relative w-12 h-12">
+                <svg className="w-12 h-12 -rotate-90" viewBox="0 0 36 36">
+                  <circle
+                    cx="18"
+                    cy="18"
+                    r="16"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    className="text-muted/20"
+                  />
+                  <circle
+                    cx="18"
+                    cy="18"
+                    r="16"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeDasharray="75.4"
+                    strokeDashoffset="15.08"
+                    className="text-green-500"
+                  />
+                </svg>
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <span className="text-lg font-bold">85</span>
+                </div>
+              </div>
+              <div>
+                <Badge className="bg-green-100 text-green-800 border-green-200 mb-1">Great</Badge>
+                <p className="text-xs text-muted-foreground">Above 80</p>
+              </div>
+            </div>
+            <p className="text-xs text-muted-foreground">89% of suggestions had great performance</p>
           </div>
         </Card>
       </div>
