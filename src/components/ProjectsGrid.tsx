@@ -112,6 +112,13 @@ const ProjectsGrid = () => {
               <div className="flex-1">
                 <div className="flex items-center gap-2 mb-2">
                   <h4 className="font-medium text-sm">{draft.title}</h4>
+                  <span className={`text-xs px-2 py-1 rounded-full ${
+                    draft.status === 'accepted' ? 'bg-success/10 text-success' :
+                    draft.status === 'pending' ? 'bg-warning/10 text-warning' :
+                    'bg-destructive/10 text-destructive'
+                  }`}>
+                    {draft.status}
+                  </span>
                 </div>
                 <div className="flex items-center gap-4 text-xs text-muted-foreground">
                   <span className="flex items-center gap-1">
