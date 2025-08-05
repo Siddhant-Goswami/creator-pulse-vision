@@ -90,7 +90,7 @@ const AnalyticsTab = () => {
       {/* Key Metrics */}
       <div className="grid gap-6 lg:grid-cols-2">
         {/* Agent Experience Score */}
-        <Card className="p-8">
+        <Card className="px-8 py-6">
           <div className="space-y-8 text-center">
             <div className="flex flex-col items-center space-y-4">
               <div className="relative w-20 h-20">
