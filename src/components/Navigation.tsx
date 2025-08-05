@@ -3,22 +3,16 @@ import logo from "@/assets/logo.png";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 interface NavigationProps {
   activeTab: string;
   onTabChange: (tab: string) => void;
 }
-
-const Navigation = ({ activeTab, onTabChange }: NavigationProps) => {
-  return (
-    <nav className="border-b border-vercel-border bg-white">
+const Navigation = ({
+  activeTab,
+  onTabChange
+}: NavigationProps) => {
+  return <nav className="border-b border-vercel-border bg-white">
       <div className="flex h-16 items-center px-6">
         {/* Logo and Team Selector */}
         <div className="flex items-center space-x-4">
@@ -26,7 +20,7 @@ const Navigation = ({ activeTab, onTabChange }: NavigationProps) => {
             <div className="h-6 w-6 rounded bg-foreground flex items-center justify-center">
               <span className="text-sm font-bold text-background">▲</span>
             </div>
-            <span className="text-lg font-semibold">CreatorPulse</span>
+            <span className="text-lg font-semibold">Cyber Monk</span>
           </div>
           
           <div className="h-6 w-px bg-vercel-border" />
@@ -49,39 +43,19 @@ const Navigation = ({ activeTab, onTabChange }: NavigationProps) => {
 
         {/* Navigation Links */}
         <div className="flex items-center space-x-6 ml-8">
-          <Button 
-            variant="ghost" 
-            className={`text-sm ${activeTab === 'overview' ? 'font-medium text-foreground' : 'text-muted-foreground hover:text-foreground'}`}
-            onClick={() => onTabChange('overview')}
-          >
+          <Button variant="ghost" className={`text-sm ${activeTab === 'overview' ? 'font-medium text-foreground' : 'text-muted-foreground hover:text-foreground'}`} onClick={() => onTabChange('overview')}>
             Overview
           </Button>
-          <Button 
-            variant="ghost" 
-            className={`text-sm ${activeTab === 'sources' ? 'font-medium text-foreground' : 'text-muted-foreground hover:text-foreground'}`}
-            onClick={() => onTabChange('sources')}
-          >
+          <Button variant="ghost" className={`text-sm ${activeTab === 'sources' ? 'font-medium text-foreground' : 'text-muted-foreground hover:text-foreground'}`} onClick={() => onTabChange('sources')}>
             Sources
           </Button>
-          <Button 
-            variant="ghost" 
-            className={`text-sm ${activeTab === 'delivery' ? 'font-medium text-foreground' : 'text-muted-foreground hover:text-foreground'}`}
-            onClick={() => onTabChange('delivery')}
-          >
+          <Button variant="ghost" className={`text-sm ${activeTab === 'delivery' ? 'font-medium text-foreground' : 'text-muted-foreground hover:text-foreground'}`} onClick={() => onTabChange('delivery')}>
             Delivery
           </Button>
-          <Button 
-            variant="ghost" 
-            className={`text-sm ${activeTab === 'analytics' ? 'font-medium text-foreground' : 'text-muted-foreground hover:text-foreground'}`}
-            onClick={() => onTabChange('analytics')}
-          >
+          <Button variant="ghost" className={`text-sm ${activeTab === 'analytics' ? 'font-medium text-foreground' : 'text-muted-foreground hover:text-foreground'}`} onClick={() => onTabChange('analytics')}>
             Analytics
           </Button>
-          <Button 
-            variant="ghost" 
-            className={`text-sm ${activeTab === 'settings' ? 'font-medium text-foreground' : 'text-muted-foreground hover:text-foreground'}`}
-            onClick={() => onTabChange('settings')}
-          >
+          <Button variant="ghost" className={`text-sm ${activeTab === 'settings' ? 'font-medium text-foreground' : 'text-muted-foreground hover:text-foreground'}`} onClick={() => onTabChange('settings')}>
             Settings
           </Button>
         </div>
@@ -114,8 +88,6 @@ const Navigation = ({ activeTab, onTabChange }: NavigationProps) => {
           </DropdownMenu>
         </div>
       </div>
-    </nav>
-  );
+    </nav>;
 };
-
 export default Navigation;
