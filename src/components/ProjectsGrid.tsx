@@ -97,18 +97,18 @@ const ProjectsGrid = () => {
 
         <div className="flex items-center space-x-2">
           <Button
-            variant={viewMode === "grid" ? "default" : "ghost"}
+            variant={viewMode === "grid" ? "secondary" : "ghost"}
             size="icon"
             onClick={() => setViewMode("grid")}
-            className={viewMode === "grid" ? "bg-muted" : ""}
+            className={viewMode === "grid" ? "bg-muted border-vercel-border" : "border-vercel-border hover:bg-muted/50"}
           >
             <Grid3X3 className="h-4 w-4" />
           </Button>
           <Button
-            variant={viewMode === "list" ? "default" : "ghost"}
+            variant={viewMode === "list" ? "secondary" : "ghost"}
             size="icon"
             onClick={() => setViewMode("list")}
-            className={viewMode === "list" ? "bg-muted" : ""}
+            className={viewMode === "list" ? "bg-muted border-vercel-border" : "border-vercel-border hover:bg-muted/50"}
           >
             <List className="h-4 w-4" />
           </Button>
