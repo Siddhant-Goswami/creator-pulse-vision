@@ -133,14 +133,9 @@ const ProjectsGrid = () => {
                 </div>
                 <p className="text-xs text-muted-foreground mt-1">{draft.time}</p>
               </div>
-              <span className={`text-xs px-3 py-1 rounded-full font-medium ${
-                draft.status === 'accepted' ? 'bg-green-100 text-green-700' :
-                draft.status === 'pending' ? 'bg-yellow-100 text-yellow-700' :
-                'bg-red-100 text-red-700'
-              }`}>
-                {draft.status === 'accepted' ? 'Accepted' : 
-                 draft.status === 'pending' ? 'Pending' : 'Rejected'}
-              </span>
+              <Button variant="ghost" size="sm" className="text-vercel-blue hover:text-vercel-blue/80">
+                View Draft
+              </Button>
             </div>
           </div>
         ))}
