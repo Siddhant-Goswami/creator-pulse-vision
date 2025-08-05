@@ -43,7 +43,7 @@ const UsageStats = () => {
         const isNegative = stat.change.startsWith('-');
         
         return (
-          <Card key={index} className="border-vercel-border">
+          <Card key={index} className="border-vercel-border bg-white hover:border-primary transition-colors">
             <CardContent className="p-6">
               <div className="flex items-center justify-between mb-2">
                 <p className="text-sm font-medium text-muted-foreground">{stat.title}</p>
