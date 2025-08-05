@@ -83,7 +83,7 @@ const ProjectsGrid = () => {
         type: "Educational",
         category: "Platform Updates",
         time: "1 day ago"
-      }].map((draft, index) => <div key={index} className="p-4 border border-vercel-border rounded-lg bg-white hover:bg-muted/50 transition-colors">
+      }].map((draft, index) => <div key={index} className="p-4 border border-vercel-border rounded-lg bg-white hover:border-primary transition-colors">
             <div className="flex items-center justify-between">
               <div className="flex-1">
                 <div className="flex items-center gap-3 mb-1">
