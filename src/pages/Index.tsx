@@ -1,13 +1,24 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import DashboardLayout from "@/components/DashboardLayout";
+import ProjectsGrid from "@/components/ProjectsGrid";
+import UsageStats from "@/components/UsageStats";
 
 const Index = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
+    <DashboardLayout>
+      <div className="max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+          {/* Left sidebar - Usage Stats */}
+          <div className="lg:col-span-1">
+            <UsageStats />
+          </div>
+          
+          {/* Main content - Projects Grid */}
+          <div className="lg:col-span-3">
+            <ProjectsGrid />
+          </div>
+        </div>
       </div>
-    </div>
+    </DashboardLayout>
   );
 };
 

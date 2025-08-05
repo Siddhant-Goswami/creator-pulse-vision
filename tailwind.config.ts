@@ -61,7 +61,16 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
-				}
+				},
+				vercel: {
+					blue: 'hsl(var(--vercel-blue))',
+					gray: 'hsl(var(--vercel-gray))',
+					'light-gray': 'hsl(var(--vercel-light-gray))',
+					border: 'hsl(var(--vercel-border))'
+				},
+				success: 'hsl(var(--success))',
+				warning: 'hsl(var(--warning))',
+				error: 'hsl(var(--error))'
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
