@@ -33,7 +33,7 @@ const Index = () => {
             {/* Header */}
             <div>
               
-              <p className="text-muted-foreground">Welcome back! Here's what's happening with your content.</p>
+              <p className="text-muted-foreground">Hey Sid, here's what's happening with our content.</p>
             </div>
             
             {/* Stats Grid */}
@@ -69,7 +69,7 @@ const Index = () => {
                     title: "Creator Economy Trends",
                     growth: "+67%",
                     category: "Business"
-                  }].map((trend, index) => <div key={index} className="p-4 border border-vercel-border rounded-lg bg-white hover:border-primary transition-colors">
+                  }].map((trend, index) => <div key={index} className="p-4 border border-vercel-border rounded-lg hover:bg-muted/50 transition-colors">
                         <div className="flex items-start justify-between">
                           <div className="flex-1">
                             <h4 className="font-medium text-sm mb-1">{trend.title}</h4>
