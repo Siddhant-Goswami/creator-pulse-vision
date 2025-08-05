@@ -6,31 +6,31 @@ import { ChevronRight, Clock, FileText, TrendingUp } from "lucide-react";
 const UsageStats = () => {
   const stats = [
     {
-      title: "Drafts Accepted",
-      value: "127",
-      change: "+12%",
-      description: "This month",
+      title: "Topics Accepted",
+      value: "18",
+      change: "+2 from last month",
+      description: "",
       icon: FileText,
     },
     {
-      title: "Avg Research Time",
-      value: "18 min",
-      change: "-67%",
-      description: "Per accepted draft",
-      icon: Clock,
-    },
-    {
-      title: "Views Uplift",
-      value: "23.5K",
-      change: "+8.2%",
-      description: "From AI topics",
+      title: "Avg Views Uplift",
+      value: "+28%",
+      change: "vs your baseline",
+      description: "",
       icon: TrendingUp,
     },
     {
-      title: "Acceptance Rate",
-      value: "84%",
-      change: "+5%",
-      description: "Last 30 days",
+      title: "Research Time Saved",
+      value: "4.2h",
+      change: "per accepted topic",
+      description: "",
+      icon: Clock,
+    },
+    {
+      title: "Total Views",
+      value: "1.2M",
+      change: "from suggested topics",
+      description: "",
       icon: TrendingUp,
     },
   ];
@@ -51,16 +51,7 @@ const UsageStats = () => {
               </div>
               <div className="space-y-1">
                 <p className="text-2xl font-bold">{stat.value}</p>
-                <div className="flex items-center gap-2">
-                  <span className={`text-xs font-medium ${
-                    isPositive ? 'text-success' : 
-                    isNegative ? 'text-success' : 
-                    'text-muted-foreground'
-                  }`}>
-                    {stat.change}
-                  </span>
-                  <span className="text-xs text-muted-foreground">{stat.description}</span>
-                </div>
+                <span className="text-xs text-muted-foreground">{stat.change}</span>
               </div>
             </CardContent>
           </Card>
