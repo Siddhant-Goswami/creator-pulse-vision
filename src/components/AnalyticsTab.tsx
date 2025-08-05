@@ -91,7 +91,7 @@ const AnalyticsTab = () => {
       <div className="grid gap-6 lg:grid-cols-2">
         {/* Agent Experience Score */}
         <Card className="p-6">
-          <div className="space-y-3">
+          <div className="space-y-4">
             <p className="text-sm font-medium text-muted-foreground">Agent Experience Score</p>
             <div className="flex items-center gap-3">
               <div className="relative w-12 h-12">
@@ -126,6 +126,40 @@ const AnalyticsTab = () => {
                 <p className="text-xs text-muted-foreground">Above 80</p>
               </div>
             </div>
+            
+            {/* Performance Breakdown */}
+            <div className="space-y-3 pt-2 border-t">
+              <div className="flex justify-between items-center text-xs">
+                <span className="flex items-center gap-2">
+                  <div className="w-2 h-2 bg-red-500 rounded-full"></div>
+                  Poor (&lt;50)
+                </span>
+                <span className="flex items-center gap-2">
+                  <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
+                  Needs Improvement (50-80)
+                </span>
+                <span className="flex items-center gap-2">
+                  <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                  Great (&gt;80)
+                </span>
+              </div>
+              
+              <div className="space-y-2">
+                <div className="flex items-center justify-between text-sm">
+                  <span>Topic Relevance</span>
+                  <span className="font-medium">18 <span className="text-xs text-muted-foreground">• 90</span></span>
+                </div>
+                <div className="flex items-center justify-between text-sm">
+                  <span>Engagement Rate</span>
+                  <span className="font-medium">12 <span className="text-xs text-muted-foreground">• 82</span></span>
+                </div>
+                <div className="flex items-center justify-between text-sm">
+                  <span>Trend Accuracy</span>
+                  <span className="font-medium">8 <span className="text-xs text-muted-foreground">• 78</span></span>
+                </div>
+              </div>
+            </div>
+            
             <p className="text-xs text-muted-foreground">89% of suggestions had great performance</p>
           </div>
         </Card>
