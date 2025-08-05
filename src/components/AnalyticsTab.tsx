@@ -149,29 +149,98 @@ const AnalyticsTab = () => {
             <div className="text-left space-y-4">
               <h4 className="text-sm font-medium text-muted-foreground uppercase tracking-wide">METRICS</h4>
               
-              <div className="space-y-3">
-                <div className="flex items-center gap-3">
-                  <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                  <div className="flex-1">
-                    <p className="text-sm font-medium">Topic Relevance</p>
-                    <p className="text-lg font-bold text-green-600">90</p>
+              <div className="grid grid-cols-3 gap-6">
+                <div className="flex flex-col items-center space-y-2">
+                  <div className="relative w-16 h-16">
+                    <svg className="w-16 h-16 -rotate-90" viewBox="0 0 36 36">
+                      <circle
+                        cx="18"
+                        cy="18"
+                        r="16"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="3"
+                        className="text-muted/20"
+                      />
+                      <circle
+                        cx="18"
+                        cy="18"
+                        r="16"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="3"
+                        strokeDasharray={`${(90/100) * 100.48}`}
+                        strokeDashoffset="0"
+                        className="text-green-500"
+                      />
+                    </svg>
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <span className="text-lg font-bold">90</span>
+                    </div>
                   </div>
+                  <p className="text-sm font-medium text-center">Topic Relevance</p>
                 </div>
                 
-                <div className="flex items-center gap-3">
-                  <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                  <div className="flex-1">
-                    <p className="text-sm font-medium">Engagement Rate</p>
-                    <p className="text-lg font-bold text-green-600">82</p>
+                <div className="flex flex-col items-center space-y-2">
+                  <div className="relative w-16 h-16">
+                    <svg className="w-16 h-16 -rotate-90" viewBox="0 0 36 36">
+                      <circle
+                        cx="18"
+                        cy="18"
+                        r="16"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="3"
+                        className="text-muted/20"
+                      />
+                      <circle
+                        cx="18"
+                        cy="18"
+                        r="16"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="3"
+                        strokeDasharray={`${(82/100) * 100.48}`}
+                        strokeDashoffset="0"
+                        className="text-green-500"
+                      />
+                    </svg>
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <span className="text-lg font-bold">82</span>
+                    </div>
                   </div>
+                  <p className="text-sm font-medium text-center">Engagement Rate</p>
                 </div>
                 
-                <div className="flex items-center gap-3">
-                  <div className="w-3 h-3 bg-orange-500"></div>
-                  <div className="flex-1">
-                    <p className="text-sm font-medium">Trend Accuracy</p>
-                    <p className="text-lg font-bold text-orange-600">78</p>
+                <div className="flex flex-col items-center space-y-2">
+                  <div className="relative w-16 h-16">
+                    <svg className="w-16 h-16 -rotate-90" viewBox="0 0 36 36">
+                      <circle
+                        cx="18"
+                        cy="18"
+                        r="16"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="3"
+                        className="text-muted/20"
+                      />
+                      <circle
+                        cx="18"
+                        cy="18"
+                        r="16"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="3"
+                        strokeDasharray={`${(78/100) * 100.48}`}
+                        strokeDashoffset="0"
+                        className="text-orange-500"
+                      />
+                    </svg>
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <span className="text-lg font-bold">78</span>
+                    </div>
                   </div>
+                  <p className="text-sm font-medium text-center">Trend Accuracy</p>
                 </div>
               </div>
             </div>
