@@ -7,6 +7,7 @@ import DeliveryTab from "@/components/DeliveryTab";
 import AnalyticsTab from "@/components/AnalyticsTab";
 import SettingsTab from "@/components/SettingsTab";
 import { Button } from "@/components/ui/button";
+import { TrendingUp } from "lucide-react";
 const Index = () => {
   const [activeTab, setActiveTab] = useState('overview');
   const renderTabContent = () => {
@@ -50,7 +51,8 @@ const Index = () => {
                 <div className="space-y-6">
                   <div className="flex items-center justify-between">
                     <h3 className="text-lg font-semibold flex items-center gap-2">
-                      📈 Trends to Watch
+                      <TrendingUp className="w-5 h-5" />
+                      Trends to Watch
                     </h3>
                     
                   </div>
