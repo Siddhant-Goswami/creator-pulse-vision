@@ -70,7 +70,8 @@ export default {
 				},
 				success: 'hsl(var(--success))',
 				warning: 'hsl(var(--warning))',
-				error: 'hsl(var(--error))'
+				error: 'hsl(var(--error))',
+				'accent-orange': 'hsl(var(--accent-orange))'
 			},
 			borderRadius: {
 				lg: 'var(--radius)',

@@ -46,6 +46,9 @@
     --success: 142 76% 36%;
     --warning: 38 92% 50%;
     --error: 0 84% 60%;
+    
+    /* Custom accent color */
+    --accent-orange: 11 86% 59%;
 
     --sidebar-background: 0 0% 98%;
 

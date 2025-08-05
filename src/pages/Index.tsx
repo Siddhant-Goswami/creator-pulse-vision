@@ -71,7 +71,7 @@ const Index = () => {
                         <div className="flex items-start justify-between">
                           <div className="flex-1">
                             <h4 className="font-medium text-sm mb-1">{trend.title}</h4>
-                            <span className="text-xs text-vercel-blue bg-vercel-blue/10 px-2 py-1 rounded">
+                            <span className="text-xs text-accent-orange bg-accent-orange/10 px-2 py-1 rounded">
                               {trend.category}
                             </span>
                           </div>
