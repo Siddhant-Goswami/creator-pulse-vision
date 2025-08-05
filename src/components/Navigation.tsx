@@ -18,7 +18,7 @@ interface NavigationProps {
 
 const Navigation = ({ activeTab, onTabChange }: NavigationProps) => {
   return (
-    <nav className="border-b border-vercel-border bg-background">
+    <nav className="border-b border-vercel-border bg-white">
       <div className="flex h-16 items-center px-6">
         {/* Logo and Team Selector */}
         <div className="flex items-center space-x-4">
