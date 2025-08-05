@@ -8,10 +8,14 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { useToast } from "@/hooks/use-toast";
 import ProjectCard from "./ProjectCard";
 
 const ProjectsGrid = () => {
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
+  const [newProjectName, setNewProjectName] = useState("");
+  const { toast } = useToast();
 
   const projects = [
     {
@@ -52,6 +56,17 @@ const ProjectsGrid = () => {
     },
   ];
 
+  const handleCreateProject = () => {
+    if (!newProjectName.trim()) return;
+    
+    toast({
+      title: "Project Created",
+      description: `${newProjectName} has been created successfully.`,
+    });
+    
+    setNewProjectName("");
+  };
+
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -62,10 +77,33 @@ const ProjectsGrid = () => {
             Manage your CreatorPulse projects and drafts
           </p>
         </div>
-        <Button className="bg-foreground hover:bg-foreground/90 text-background">
-          <Plus className="mr-2 h-4 w-4" />
-          Add New...
-        </Button>
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button className="bg-foreground hover:bg-foreground/90 text-background">
+              <Plus className="mr-2 h-4 w-4" />
+              Add New...
+            </Button>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Create New Project</DialogTitle>
+              <DialogDescription>
+                Start a new CreatorPulse project to generate content and analyze trends.
+              </DialogDescription>
+            </DialogHeader>
+            <div className="space-y-4">
+              <div className="flex gap-2">
+                <Input 
+                  placeholder="Enter project name..." 
+                  value={newProjectName}
+                  onChange={(e) => setNewProjectName(e.target.value)}
+                  className="flex-1" 
+                />
+                <Button onClick={handleCreateProject}>Create</Button>
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
       </div>
 
       {/* Filters and Search */}

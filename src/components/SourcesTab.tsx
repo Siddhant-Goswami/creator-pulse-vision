@@ -1,12 +1,14 @@
+import { useState } from "react";
 import { Plus, Youtube, Globe, Trash2, Settings } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Switch } from "@/components/ui/switch";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 
 const SourcesTab = () => {
-  const sources = [
+  const [sources, setSources] = useState([
     {
       id: 1,
       name: "TechCrunch",
@@ -34,7 +36,39 @@ const SourcesTab = () => {
       icon: Youtube,
       lastCrawled: "1 day ago"
     }
-  ];
+  ]);
+
+  const [newSourceUrl, setNewSourceUrl] = useState("");
+
+  const toggleSourceStatus = (id: number) => {
+    setSources(sources.map(source => 
+      source.id === id 
+        ? { ...source, status: source.status === "active" ? "paused" : "active" }
+        : source
+    ));
+  };
+
+  const deleteSource = (id: number) => {
+    setSources(sources.filter(source => source.id !== id));
+  };
+
+  const addNewSource = () => {
+    if (!newSourceUrl.trim()) return;
+    
+    const isYoutube = newSourceUrl.includes("youtube.com") || newSourceUrl.includes("youtu.be");
+    const newSource = {
+      id: Date.now(),
+      name: isYoutube ? "New YouTube Channel" : "New RSS Feed",
+      type: isYoutube ? "YouTube Channel" : "RSS Feed",
+      url: newSourceUrl,
+      status: "active" as const,
+      icon: isYoutube ? Youtube : Globe,
+      lastCrawled: "Just now"
+    };
+    
+    setSources([...sources, newSource]);
+    setNewSourceUrl("");
+  };
 
   return (
     <div className="space-y-6">
@@ -44,10 +78,53 @@ const SourcesTab = () => {
           <h2 className="text-2xl font-semibold tracking-tight">Sources</h2>
           <p className="text-muted-foreground">Connect your trusted sources for trend discovery and research</p>
         </div>
-        <Button className="flex items-center gap-2">
-          <Plus className="h-4 w-4" />
-          Add Source
-        </Button>
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button className="flex items-center gap-2">
+              <Plus className="h-4 w-4" />
+              Add Source
+            </Button>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Add New Source</DialogTitle>
+              <DialogDescription>
+                Connect a YouTube channel or RSS feed to monitor for trends and content ideas.
+              </DialogDescription>
+            </DialogHeader>
+            <div className="space-y-4">
+              <div className="flex gap-2">
+                <Input 
+                  placeholder="Enter YouTube channel URL or RSS feed..." 
+                  value={newSourceUrl}
+                  onChange={(e) => setNewSourceUrl(e.target.value)}
+                  className="flex-1" 
+                />
+                <Button onClick={addNewSource}>Connect</Button>
+              </div>
+              <div className="flex gap-2">
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  className="flex items-center gap-2"
+                  onClick={() => setNewSourceUrl("https://youtube.com/@")}
+                >
+                  <Youtube className="h-4 w-4" />
+                  YouTube
+                </Button>
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  className="flex items-center gap-2"
+                  onClick={() => setNewSourceUrl("https://example.com/feed.xml")}
+                >
+                  <Globe className="h-4 w-4" />
+                  RSS Feed
+                </Button>
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
       </div>
 
       {/* Add New Source */}
@@ -58,15 +135,30 @@ const SourcesTab = () => {
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="flex gap-2">
-            <Input placeholder="Enter YouTube channel URL or RSS feed..." className="flex-1" />
-            <Button>Connect</Button>
+            <Input 
+              placeholder="Enter YouTube channel URL or RSS feed..." 
+              value={newSourceUrl}
+              onChange={(e) => setNewSourceUrl(e.target.value)}
+              className="flex-1" 
+            />
+            <Button onClick={addNewSource}>Connect</Button>
           </div>
           <div className="flex gap-2">
-            <Button variant="outline" size="sm" className="flex items-center gap-2">
+            <Button 
+              variant="outline" 
+              size="sm" 
+              className="flex items-center gap-2"
+              onClick={() => setNewSourceUrl("https://youtube.com/@")}
+            >
               <Youtube className="h-4 w-4" />
               YouTube
             </Button>
-            <Button variant="outline" size="sm" className="flex items-center gap-2">
+            <Button 
+              variant="outline" 
+              size="sm" 
+              className="flex items-center gap-2"
+              onClick={() => setNewSourceUrl("https://example.com/feed.xml")}
+            >
               <Globe className="h-4 w-4" />
               RSS Feed
             </Button>
@@ -96,15 +188,22 @@ const SourcesTab = () => {
                       <p className="text-sm text-muted-foreground">{source.type} • Last crawled {source.lastCrawled}</p>
                     </div>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <Switch checked={source.status === "active"} />
-                    <Button variant="ghost" size="icon">
-                      <Settings className="h-4 w-4" />
-                    </Button>
-                    <Button variant="ghost" size="icon">
-                      <Trash2 className="h-4 w-4 text-destructive" />
-                    </Button>
-                  </div>
+                   <div className="flex items-center gap-2">
+                     <Switch 
+                       checked={source.status === "active"} 
+                       onCheckedChange={() => toggleSourceStatus(source.id)}
+                     />
+                     <Button variant="ghost" size="icon">
+                       <Settings className="h-4 w-4" />
+                     </Button>
+                     <Button 
+                       variant="ghost" 
+                       size="icon"
+                       onClick={() => deleteSource(source.id)}
+                     >
+                       <Trash2 className="h-4 w-4 text-destructive" />
+                     </Button>
+                   </div>
                 </div>
               </CardContent>
             </Card>
