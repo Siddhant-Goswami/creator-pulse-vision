@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { Search, Filter, Grid3X3, List, Plus, FileText } from "lucide-react";
+import { Search, Filter, Grid3X3, List, Plus, FileText, Edit, Check, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
@@ -9,6 +10,10 @@ import ProjectCard from "./ProjectCard";
 const ProjectsGrid = () => {
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [newProjectName, setNewProjectName] = useState("");
+  const [selectedDraft, setSelectedDraft] = useState<any>(null);
+  const [editedTitle, setEditedTitle] = useState("");
+  const [editedContent, setEditedContent] = useState("");
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const {
     toast
   } = useToast();
@@ -53,6 +58,29 @@ const ProjectsGrid = () => {
     });
     setNewProjectName("");
   };
+
+  const handleDraftClick = (draft: any) => {
+    setSelectedDraft(draft);
+    setEditedTitle(draft.title);
+    setEditedContent(`This is the content for "${draft.title}". Here you can write the full script or content for this draft...`);
+    setIsDialogOpen(true);
+  };
+
+  const handleApproveDraft = () => {
+    toast({
+      title: "Draft Approved",
+      description: `"${editedTitle}" has been approved and published.`
+    });
+    setIsDialogOpen(false);
+  };
+
+  const handleRejectDraft = () => {
+    toast({
+      title: "Draft Rejected",
+      description: `"${editedTitle}" has been rejected.`
+    });
+    setIsDialogOpen(false);
+  };
   return <div className="space-y-6">
       {/* Header */}
       <div className="flex items-center justify-between">
@@ -83,7 +111,10 @@ const ProjectsGrid = () => {
         type: "Educational",
         category: "Platform Updates",
         time: "1 day ago"
-      }].map((draft, index) => <div key={index} className="p-4 border border-vercel-border rounded-lg bg-white hover:border-primary transition-colors">
+      }].map((draft, index) => <div key={index} 
+            className="p-4 border border-vercel-border rounded-lg bg-white hover:border-primary transition-colors cursor-pointer"
+            onClick={() => handleDraftClick(draft)}
+          >
             <div className="flex items-center justify-between">
               <div className="flex-1">
                 <div className="flex items-center gap-3 mb-1">
@@ -102,6 +133,56 @@ const ProjectsGrid = () => {
             </div>
           </div>)}
       </div>
+
+      {/* Draft Edit Dialog */}
+      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+        <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto bg-white">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <Edit className="h-5 w-5" />
+              Edit Draft
+            </DialogTitle>
+            <DialogDescription>
+              Review and edit your draft before approving or rejecting it.
+            </DialogDescription>
+          </DialogHeader>
+
+          <div className="space-y-6">
+            <div className="space-y-2">
+              <label className="text-sm font-medium">Title</label>
+              <Input 
+                value={editedTitle}
+                onChange={(e) => setEditedTitle(e.target.value)}
+                placeholder="Enter draft title..."
+              />
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-sm font-medium">Content</label>
+              <Textarea 
+                value={editedContent}
+                onChange={(e) => setEditedContent(e.target.value)}
+                placeholder="Write your content here..."
+                className="min-h-[300px]"
+              />
+            </div>
+
+            <div className="flex items-center gap-3 pt-4 border-t">
+              <Button onClick={handleApproveDraft} className="flex items-center gap-2">
+                <Check className="h-4 w-4" />
+                Approve & Publish
+              </Button>
+              <Button variant="destructive" onClick={handleRejectDraft} className="flex items-center gap-2">
+                <X className="h-4 w-4" />
+                Reject
+              </Button>
+              <Button variant="outline" onClick={() => setIsDialogOpen(false)}>
+                Cancel
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>;
 };
 export default ProjectsGrid;
