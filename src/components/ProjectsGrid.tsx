@@ -99,11 +99,13 @@ const ProjectsGrid = () => {
                     🏷️ {draft.category}
                   </span>
                 </div>
-                <p className="text-xs text-muted-foreground mt-1">{draft.time}</p>
               </div>
-              <span className={`text-xs px-3 py-1 rounded-full font-medium ${draft.status === 'accepted' ? 'bg-green-100 text-green-700' : draft.status === 'pending' ? 'bg-yellow-100 text-yellow-700' : 'bg-red-100 text-red-700'}`}>
-                {draft.status === 'accepted' ? 'Accepted' : draft.status === 'pending' ? 'Pending' : 'Rejected'}
-              </span>
+              <div className="flex flex-col items-end gap-2">
+                <span className={`text-xs px-3 py-1 rounded-full font-medium ${draft.status === 'accepted' ? 'bg-green-100 text-green-700' : draft.status === 'pending' ? 'bg-yellow-100 text-yellow-700' : 'bg-red-100 text-red-700'}`}>
+                  {draft.status === 'accepted' ? 'Accepted' : draft.status === 'pending' ? 'Pending' : 'Rejected'}
+                </span>
+                <p className="text-xs text-muted-foreground">{draft.time}</p>
+              </div>
             </div>
           </div>)}
       </div>
