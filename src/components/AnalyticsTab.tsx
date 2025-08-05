@@ -149,7 +149,7 @@ const AnalyticsTab = () => {
             
             {/* Metrics */}
             <div className="text-left space-y-4">
-              <h4 className="text-sm font-medium text-muted-foreground uppercase tracking-wide">METRICS</h4>
+              <h4 className="text-sm font-medium text-muted-foreground uppercase tracking-wide text-center">METRICS</h4>
               
               <div className="grid grid-cols-3 gap-6">
                 <div className="flex flex-col items-center space-y-2">
