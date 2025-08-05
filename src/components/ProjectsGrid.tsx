@@ -93,9 +93,6 @@ const ProjectsGrid = () => {
                 </div>
                 <div className="flex items-center gap-4 text-xs text-muted-foreground">
                   <span className="flex items-center gap-1">
-                    📊 {draft.views}
-                  </span>
-                  <span className="flex items-center gap-1">
                     🎬 {draft.type}
                   </span>
                   <span className="flex items-center gap-1">
