@@ -88,63 +88,8 @@ const AnalyticsTab = () => {
       </div>
 
       {/* Key Metrics */}
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-5">
-        <Card className="p-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm font-medium text-muted-foreground">Topics Accepted</p>
-              <p className="text-2xl font-bold">18</p>
-              <div className="flex items-center gap-1 text-sm text-green-600">
-                <ArrowUpRight className="h-3 w-3" />
-                <span>+2 from last month</span>
-              </div>
-            </div>
-            <CheckCircle className="h-8 w-8 text-muted-foreground" />
-          </div>
-        </Card>
-
-        <Card className="p-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm font-medium text-muted-foreground">Avg Views Uplift</p>
-              <p className="text-2xl font-bold">+28%</p>
-              <div className="flex items-center gap-1 text-sm text-green-600">
-                <ArrowUpRight className="h-3 w-3" />
-                <span>vs your baseline</span>
-              </div>
-            </div>
-            <TrendingUp className="h-8 w-8 text-muted-foreground" />
-          </div>
-        </Card>
-
-        <Card className="p-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm font-medium text-muted-foreground">Research Time Saved</p>
-              <p className="text-2xl font-bold">4.2h</p>
-              <div className="flex items-center gap-1 text-sm text-green-600">
-                <ArrowUpRight className="h-3 w-3" />
-                <span>per accepted topic</span>
-              </div>
-            </div>
-            <Clock className="h-8 w-8 text-muted-foreground" />
-          </div>
-        </Card>
-
-        <Card className="p-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-sm font-medium text-muted-foreground">Total Views</p>
-              <p className="text-2xl font-bold">1.2M</p>
-              <div className="flex items-center gap-1 text-sm text-green-600">
-                <ArrowUpRight className="h-3 w-3" />
-                <span>from suggested topics</span>
-              </div>
-            </div>
-            <Eye className="h-8 w-8 text-muted-foreground" />
-          </div>
-        </Card>
-
+      <div className="grid gap-6 lg:grid-cols-2">
+        {/* Agent Experience Score */}
         <Card className="p-6">
           <div className="space-y-3">
             <p className="text-sm font-medium text-muted-foreground">Agent Experience Score</p>
@@ -184,40 +129,75 @@ const AnalyticsTab = () => {
             <p className="text-xs text-muted-foreground">89% of suggestions had great performance</p>
           </div>
         </Card>
-      </div>
 
-      {/* Chart */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Performance Over Time</CardTitle>
-          <CardDescription>Views and engagement from CreatorPulse suggested topics</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="h-80">
-            <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={chartData}>
-                <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
-                <XAxis 
-                  dataKey="name" 
-                  className="text-muted-foreground"
-                  tick={{ fontSize: 12 }}
-                />
-                <YAxis 
-                  className="text-muted-foreground"
-                  tick={{ fontSize: 12 }}
-                />
-                <Line 
-                  type="monotone" 
-                  dataKey="views" 
-                  stroke="hsl(var(--primary))" 
-                  strokeWidth={2}
-                  dot={{ fill: "hsl(var(--primary))", strokeWidth: 2 }}
-                />
-              </LineChart>
-            </ResponsiveContainer>
-          </div>
-        </CardContent>
-      </Card>
+        {/* Chart with Metrics */}
+        <Card>
+          <CardHeader className="pb-4">
+            <CardTitle>Performance Over Time</CardTitle>
+            <CardDescription>Views and engagement from CreatorPulse suggested topics</CardDescription>
+            
+            {/* Metrics Tabs */}
+            <div className="grid grid-cols-2 gap-4 pt-4">
+              <div className="flex items-center gap-2 p-3 rounded-lg border">
+                <CheckCircle className="h-4 w-4 text-muted-foreground" />
+                <div>
+                  <p className="text-xs text-muted-foreground">Topics Accepted</p>
+                  <p className="text-lg font-bold">18</p>
+                </div>
+              </div>
+              
+              <div className="flex items-center gap-2 p-3 rounded-lg border">
+                <TrendingUp className="h-4 w-4 text-muted-foreground" />
+                <div>
+                  <p className="text-xs text-muted-foreground">Avg Views Uplift</p>
+                  <p className="text-lg font-bold">+28%</p>
+                </div>
+              </div>
+              
+              <div className="flex items-center gap-2 p-3 rounded-lg border">
+                <Clock className="h-4 w-4 text-muted-foreground" />
+                <div>
+                  <p className="text-xs text-muted-foreground">Research Time Saved</p>
+                  <p className="text-lg font-bold">4.2h</p>
+                </div>
+              </div>
+              
+              <div className="flex items-center gap-2 p-3 rounded-lg border">
+                <Eye className="h-4 w-4 text-muted-foreground" />
+                <div>
+                  <p className="text-xs text-muted-foreground">Total Views</p>
+                  <p className="text-lg font-bold">1.2M</p>
+                </div>
+              </div>
+            </div>
+          </CardHeader>
+          <CardContent>
+            <div className="h-80">
+              <ResponsiveContainer width="100%" height="100%">
+                <LineChart data={chartData}>
+                  <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
+                  <XAxis 
+                    dataKey="name" 
+                    className="text-muted-foreground"
+                    tick={{ fontSize: 12 }}
+                  />
+                  <YAxis 
+                    className="text-muted-foreground"
+                    tick={{ fontSize: 12 }}
+                  />
+                  <Line 
+                    type="monotone" 
+                    dataKey="views" 
+                    stroke="hsl(var(--primary))" 
+                    strokeWidth={2}
+                    dot={{ fill: "hsl(var(--primary))", strokeWidth: 2 }}
+                  />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
 
       {/* Topics Performance */}
       <Card>
