@@ -22,6 +22,18 @@ const Navigation = ({
             </div>
             <span className="text-lg font-semibold">Cyber Monk</span>
           </div>
+          
+          <div className="h-6 w-px bg-vercel-border" />
+          
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" className="flex items-center space-x-2 text-sm">
+                <span>Siddhant Goswami's projects</span>
+                <ChevronDown className="h-4 w-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            
+          </DropdownMenu>
         </div>
 
         {/* Navigation Links */}
