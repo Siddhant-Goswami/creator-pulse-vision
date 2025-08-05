@@ -1,4 +1,4 @@
-import { Search, ChevronDown, Bell, User, Settings } from "lucide-react";
+import { ChevronDown, User, Settings } from "lucide-react";
 import logo from "@/assets/logo.png";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -88,35 +88,12 @@ const Navigation = ({ activeTab, onTabChange }: NavigationProps) => {
 
         {/* Right side */}
         <div className="ml-auto flex items-center space-x-4">
-          {/* Search */}
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-            <Input
-              placeholder="Search..."
-              className="w-64 pl-9 bg-muted/50 border-vercel-border"
-            />
-            <kbd className="absolute right-3 top-1/2 -translate-y-1/2 rounded border bg-muted px-1.5 py-0.5 text-xs text-muted-foreground">
-              ⌘K
-            </kbd>
-          </div>
-
-          {/* Feedback */}
-          <Button variant="ghost" size="sm" className="text-sm text-muted-foreground">
-            Feedback
-          </Button>
-
-          {/* Notifications */}
-          <Button variant="ghost" size="icon" className="relative">
-            <Bell className="h-4 w-4" />
-            <span className="absolute -top-1 -right-1 h-2 w-2 rounded-full bg-vercel-blue"></span>
-          </Button>
-
           {/* User Menu */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" className="flex items-center space-x-2">
                 <Avatar className="h-6 w-6">
-                  <AvatarImage src="/placeholder.svg" />
+                  <AvatarImage src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=100&h=100&fit=crop&crop=face" />
                   <AvatarFallback>CP</AvatarFallback>
                 </Avatar>
                 <ChevronDown className="h-4 w-4" />
