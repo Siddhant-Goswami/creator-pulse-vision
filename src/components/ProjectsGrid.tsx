@@ -67,43 +67,35 @@ const ProjectsGrid = () => {
         {[{
         title: "10 AI Tools Every YouTuber Needs",
         status: "accepted",
-        views: "12-18K views",
         type: "List Video",
         category: "AI Tools",
         time: "2 hours ago"
       }, {
         title: "The Future of Content Creation",
         status: "pending",
-        views: "8-12K views",
         type: "Discussion",
         category: "Industry Trends",
         time: "5 hours ago"
       }, {
         title: "YouTube Algorithm Changes 2024",
         status: "rejected",
-        views: "15-25K views",
         type: "Educational",
         category: "Platform Updates",
         time: "1 day ago"
       }].map((draft, index) => <div key={index} className="p-4 border border-vercel-border rounded-lg hover:bg-muted/50 transition-colors">
-            <div className="flex items-start justify-between">
+            <div className="flex items-center justify-between">
               <div className="flex-1">
-                <div className="flex items-center gap-2 mb-2">
+                <div className="flex items-center gap-3 mb-1">
                   <h4 className="font-medium text-sm">{draft.title}</h4>
+                  <span className={`text-xs px-2 py-1 rounded font-medium ${draft.status === 'accepted' ? 'bg-green-100 text-green-700' : draft.status === 'pending' ? 'bg-yellow-100 text-yellow-700' : 'bg-red-100 text-red-700'}`}>
+                    {draft.status === 'accepted' ? 'Published' : draft.status === 'pending' ? 'Pending' : 'Rejected'}
+                  </span>
                 </div>
                 <div className="flex items-center gap-4 text-xs text-muted-foreground">
-                  <span className="flex items-center gap-1">
-                    🎬 {draft.type}
-                  </span>
-                  <span className="flex items-center gap-1">
-                    🏷️ {draft.category}
-                  </span>
+                  <span>Suggested on {draft.time}</span>
                 </div>
               </div>
-              <div className="flex flex-col items-end gap-2">
-                <span className={`text-xs px-3 py-1 rounded-full font-medium ${draft.status === 'accepted' ? 'bg-green-100 text-green-700' : draft.status === 'pending' ? 'bg-yellow-100 text-yellow-700' : 'bg-red-100 text-red-700'}`}>
-                  {draft.status === 'accepted' ? 'Accepted' : draft.status === 'pending' ? 'Pending' : 'Rejected'}
-                </span>
+              <div className="text-right">
                 <p className="text-xs text-muted-foreground">{draft.time}</p>
               </div>
             </div>
