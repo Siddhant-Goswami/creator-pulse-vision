@@ -107,33 +107,36 @@ const ProjectsGrid = () => {
             time: "1 day ago"
           }
         ].map((draft, index) => (
-          <div key={index} className="p-4 border border-vercel-border rounded-lg hover:bg-muted/50 transition-colors">
+          <div key={index} className="p-4 border border-border rounded-lg hover:bg-muted/50 transition-colors">
             <div className="flex items-start justify-between">
               <div className="flex-1">
-                <div className="flex items-center gap-2 mb-2">
-                  <h4 className="font-medium text-sm">{draft.title}</h4>
-                </div>
-                <div className="flex items-center gap-4 text-xs text-muted-foreground">
-                  <span className="flex items-center gap-1">
-                    📊 {draft.views}
-                  </span>
-                  <span className="flex items-center gap-1">
-                    🎬 {draft.type}
-                  </span>
-                  <span className="flex items-center gap-1">
-                    🏷️ {draft.category}
+                <div className="flex items-center gap-3 mb-2">
+                  <h4 className="font-medium text-base">{draft.title}</h4>
+                  <span className={`text-xs px-3 py-1 rounded-full font-medium ${
+                    draft.status === 'accepted' ? 'bg-green-100 text-green-700' :
+                    draft.status === 'pending' ? 'bg-yellow-100 text-yellow-700' :
+                    'bg-red-100 text-red-700'
+                  }`}>
+                    {draft.status === 'accepted' ? 'Published' : 
+                     draft.status === 'pending' ? 'Pending' : 'Rejected'}
                   </span>
                 </div>
-                <p className="text-xs text-muted-foreground mt-1">{draft.time}</p>
+                <p className="text-sm text-muted-foreground">Suggested on {draft.time}</p>
               </div>
-              <span className={`text-xs px-3 py-1 rounded-full font-medium ${
-                draft.status === 'accepted' ? 'bg-green-100 text-green-700' :
-                draft.status === 'pending' ? 'bg-yellow-100 text-yellow-700' :
-                'bg-red-100 text-red-700'
-              }`}>
-                {draft.status === 'accepted' ? 'Accepted' : 
-                 draft.status === 'pending' ? 'Pending' : 'Rejected'}
-              </span>
+              <div className="text-right">
+                <div className="flex items-center gap-2 mb-1">
+                  <span className="text-lg font-semibold">{draft.views}</span>
+                  <span className={`text-sm font-medium ${
+                    draft.status === 'accepted' ? 'text-green-600' : 'text-muted-foreground'
+                  }`}>
+                    {draft.status === 'accepted' ? '+34%' : 'N/A'}
+                  </span>
+                </div>
+                <div className="text-xs text-muted-foreground">
+                  <div>Engagement: {draft.status === 'accepted' ? '8.2%' : 'N/A'}</div>
+                  <div>vs baseline</div>
+                </div>
+              </div>
             </div>
           </div>
         ))}
