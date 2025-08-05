@@ -117,7 +117,9 @@ const AnalyticsTab = () => {
                   />
                 </svg>
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="text-2xl font-bold">85</span>
+                  <div className="bg-green-50 rounded-full w-12 h-12 flex items-center justify-center">
+                    <span className="text-2xl font-bold">85</span>
+                  </div>
                 </div>
               </div>
               
@@ -175,7 +177,9 @@ const AnalyticsTab = () => {
                       />
                     </svg>
                     <div className="absolute inset-0 flex items-center justify-center">
-                      <span className="text-lg font-bold">90</span>
+                      <div className="bg-green-50 rounded-full w-12 h-12 flex items-center justify-center">
+                        <span className="text-lg font-bold">90</span>
+                      </div>
                     </div>
                   </div>
                   <p className="text-sm font-medium text-center">Topic Relevance</p>
@@ -206,7 +210,9 @@ const AnalyticsTab = () => {
                       />
                     </svg>
                     <div className="absolute inset-0 flex items-center justify-center">
-                      <span className="text-lg font-bold">82</span>
+                      <div className="bg-green-50 rounded-full w-12 h-12 flex items-center justify-center">
+                        <span className="text-lg font-bold">82</span>
+                      </div>
                     </div>
                   </div>
                   <p className="text-sm font-medium text-center">Engagement Rate</p>
@@ -237,7 +243,9 @@ const AnalyticsTab = () => {
                       />
                     </svg>
                     <div className="absolute inset-0 flex items-center justify-center">
-                      <span className="text-lg font-bold">78</span>
+                      <div className="bg-orange-50 rounded-full w-12 h-12 flex items-center justify-center">
+                        <span className="text-lg font-bold">78</span>
+                      </div>
                     </div>
                   </div>
                   <p className="text-sm font-medium text-center">Trend Accuracy</p>
