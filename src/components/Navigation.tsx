@@ -41,9 +41,6 @@ const Navigation = ({
           <Button variant="ghost" className={`text-sm ${activeTab === 'analytics' ? 'font-medium text-foreground' : 'text-muted-foreground hover:text-foreground'}`} onClick={() => onTabChange('analytics')}>
             Analytics
           </Button>
-          <Button variant="ghost" className={`text-sm ${activeTab === 'settings' ? 'font-medium text-foreground' : 'text-muted-foreground hover:text-foreground'}`} onClick={() => onTabChange('settings')}>
-            Settings
-          </Button>
         </div>
 
         {/* Right side */}
