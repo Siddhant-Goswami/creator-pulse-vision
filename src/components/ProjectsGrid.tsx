@@ -1,188 +1,181 @@
 import { useState } from "react";
-import { Search, Filter, Grid3X3, List, Plus, FileText, Edit, Check, X } from "lucide-react";
+import { Search, Filter, Grid3X3, List, Plus, FileText, Edit, Check, X, AlertCircle, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
+import { useProjects } from "@/hooks/use-projects";
+import { CreateProjectData } from "@/lib/api-client";
 import ProjectCard from "./ProjectCard";
 const ProjectsGrid = () => {
+  const { projects, loading, error, addProject } = useProjects();
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
-  const [newProjectName, setNewProjectName] = useState("");
-  const [selectedDraft, setSelectedDraft] = useState<any>(null);
-  const [editedTitle, setEditedTitle] = useState("");
-  const [editedContent, setEditedContent] = useState("");
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const {
-    toast
-  } = useToast();
-  const projects = [{
-    name: "youtube-growth-scripts",
-    url: "youtube-growth-scripts.creatorpulse.app",
-    lastUpdate: "Jan 25 on main",
-    status: "ready" as const,
-    repo: "CreatorPulse/youtube-growth-scripts",
-    branch: "main",
-    description: "AI-generated scripts for viral YouTube content focused on productivity and growth"
-  }, {
-    name: "trend-analyzer-v2",
-    url: "trend-analyzer-v2.creatorpulse.app",
-    lastUpdate: "12/20/24",
-    status: "ready" as const,
-    repo: "CreatorPulse/trend-analyzer",
-    branch: "main",
-    description: "Advanced trend detection and analysis for content creators"
-  }, {
-    name: "content-scheduler",
-    url: "content-scheduler.creatorpulse.app",
-    lastUpdate: "Jan 24 on feature",
-    status: "building" as const,
-    repo: "CreatorPulse/content-scheduler",
-    branch: "feature",
-    description: "Automated content scheduling and delivery system"
-  }, {
-    name: "voice-trainer",
-    url: "voice-trainer.creatorpulse.app",
-    lastUpdate: "10/2/24",
-    status: "ready" as const,
-    repo: "CreatorPulse/voice-trainer",
-    branch: "main",
-    description: "AI voice training and style adaptation engine"
-  }];
-  const handleCreateProject = () => {
-    if (!newProjectName.trim()) return;
-    toast({
-      title: "Project Created",
-      description: `${newProjectName} has been created successfully.`
-    });
-    setNewProjectName("");
+  const [newProjectTitle, setNewProjectTitle] = useState("");
+  const [newProjectDescription, setNewProjectDescription] = useState("");
+  const [newProjectCategory, setNewProjectCategory] = useState("");
+  const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
+  const [isCreating, setIsCreating] = useState(false);
+  const { toast } = useToast();
+  const handleCreateProject = async () => {
+    if (!newProjectTitle.trim()) return;
+    
+    setIsCreating(true);
+    try {
+      const projectData: CreateProjectData = {
+        title: newProjectTitle,
+        ...(newProjectDescription.trim() && { description: newProjectDescription.trim() }),
+        ...(newProjectCategory.trim() && { category: newProjectCategory.trim() })
+      };
+      
+      await addProject(projectData);
+      toast({
+        title: "Project Created",
+        description: `${newProjectTitle} has been created successfully.`
+      });
+      setNewProjectTitle("");
+      setNewProjectDescription("");
+      setNewProjectCategory("");
+      setIsCreateDialogOpen(false);
+    } catch (err) {
+      console.error('Failed to create project:', err);
+      toast({
+        title: "Error",
+        description: "Failed to create project. Please try again.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsCreating(false);
+    }
   };
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center p-8">
+        <Loader2 className="h-8 w-8 animate-spin" />
+        <span className="ml-2">Loading projects...</span>
+      </div>
+    );
+  }
 
-  const handleDraftClick = (draft: any) => {
-    setSelectedDraft(draft);
-    setEditedTitle(draft.title);
-    setEditedContent(`This is the content for "${draft.title}". Here you can write the full script or content for this draft...`);
-    setIsDialogOpen(true);
-  };
+  return (
+    <div className="space-y-6">
+      {/* Error Alert */}
+      {error && (
+        <Alert variant="destructive">
+          <AlertCircle className="h-4 w-4" />
+          <AlertDescription>{error}</AlertDescription>
+        </Alert>
+      )}
 
-  const handleApproveDraft = () => {
-    toast({
-      title: "Draft Approved",
-      description: `"${editedTitle}" has been approved and published.`
-    });
-    setIsDialogOpen(false);
-  };
-
-  const handleRejectDraft = () => {
-    toast({
-      title: "Draft Rejected",
-      description: `"${editedTitle}" has been rejected.`
-    });
-    setIsDialogOpen(false);
-  };
-  return <div className="space-y-6">
       {/* Header */}
       <div className="flex items-center justify-between">
-        <h3 className="text-lg font-semibold flex items-center gap-2">
-          <FileText className="w-5 h-5" />
-          Recent Drafts
-        </h3>
-        
-      </div>
-
-      {/* Recent Drafts List */}
-      <div className="space-y-4">
-        {[{
-        title: "10 AI Tools Every YouTuber Needs",
-        status: "accepted",
-        type: "List Video",
-        category: "AI Tools",
-        time: "2 hours ago"
-      }, {
-        title: "The Future of Content Creation",
-        status: "pending",
-        type: "Discussion",
-        category: "Industry Trends",
-        time: "5 hours ago"
-      }, {
-        title: "YouTube Algorithm Changes 2024",
-        status: "rejected",
-        type: "Educational",
-        category: "Platform Updates",
-        time: "1 day ago"
-      }].map((draft, index) => <div key={index} 
-            className="p-4 border border-vercel-border rounded-lg bg-white hover:border-primary transition-colors cursor-pointer"
-            onClick={() => handleDraftClick(draft)}
-          >
-            <div className="flex items-center justify-between">
-              <div className="flex-1">
-                <div className="flex items-center gap-3 mb-1">
-                  <h4 className="font-medium text-sm">{draft.title}</h4>
-                  <span className={`text-xs px-2 py-1 rounded font-medium ${draft.status === 'accepted' ? 'bg-green-100 text-green-700' : draft.status === 'pending' ? 'bg-yellow-100 text-yellow-700' : 'bg-red-100 text-red-700'}`}>
-                    {draft.status === 'accepted' ? 'Published' : draft.status === 'pending' ? 'Pending' : 'Rejected'}
-                  </span>
-                </div>
-                <div className="flex items-center gap-4 text-xs text-muted-foreground">
-                  <span>Suggested on {draft.time}</span>
-                </div>
-              </div>
-              <div className="text-right">
-                <p className="text-xs text-muted-foreground">{draft.time}</p>
-              </div>
-            </div>
-          </div>)}
-      </div>
-
-      {/* Draft Edit Dialog */}
-      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto bg-white">
-          <DialogHeader>
-            <DialogTitle className="flex items-center gap-2">
-              <Edit className="h-5 w-5" />
-              Edit Draft
-            </DialogTitle>
-            <DialogDescription>
-              Review and edit your draft before approving or rejecting it.
-            </DialogDescription>
-          </DialogHeader>
-
-          <div className="space-y-6">
-            <div className="space-y-2">
-              <label className="text-sm font-medium">Title</label>
-              <Input 
-                value={editedTitle}
-                onChange={(e) => setEditedTitle(e.target.value)}
-                placeholder="Enter draft title..."
-              />
-            </div>
-
-            <div className="space-y-2">
-              <label className="text-sm font-medium">Content</label>
-              <Textarea 
-                value={editedContent}
-                onChange={(e) => setEditedContent(e.target.value)}
-                placeholder="Write your content here..."
-                className="min-h-[300px]"
-              />
-            </div>
-
-            <div className="flex items-center gap-3 pt-4 border-t">
-              <Button onClick={handleApproveDraft} className="flex items-center gap-2">
-                <Check className="h-4 w-4" />
-                Approve & Publish
-              </Button>
-              <Button variant="destructive" onClick={handleRejectDraft} className="flex items-center gap-2">
-                <X className="h-4 w-4" />
-                Reject
-              </Button>
-              <Button variant="outline" onClick={() => setIsDialogOpen(false)}>
-                Cancel
-              </Button>
-            </div>
+        <div className="flex items-center gap-4">
+          <h3 className="text-lg font-semibold">Projects ({projects.length})</h3>
+          <div className="flex items-center gap-2">
+            <Button
+              variant={viewMode === "grid" ? "default" : "outline"}
+              size="sm"
+              onClick={() => setViewMode("grid")}
+            >
+              <Grid3X3 className="h-4 w-4" />
+            </Button>
+            <Button
+              variant={viewMode === "list" ? "default" : "outline"}
+              size="sm"
+              onClick={() => setViewMode("list")}
+            >
+              <List className="h-4 w-4" />
+            </Button>
           </div>
-        </DialogContent>
-      </Dialog>
-    </div>;
+        </div>
+        
+        <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
+          <DialogTrigger asChild>
+            <Button>
+              <Plus className="h-4 w-4 mr-2" />
+              New Project
+            </Button>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Create New Project</DialogTitle>
+              <DialogDescription>
+                Create a new project to organize your content and track progress.
+              </DialogDescription>
+            </DialogHeader>
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <label className="text-sm font-medium">Project Title</label>
+                <Input 
+                  placeholder="Enter project title..." 
+                  value={newProjectTitle} 
+                  onChange={e => setNewProjectTitle(e.target.value)} 
+                />
+              </div>
+              <div className="space-y-2">
+                <label className="text-sm font-medium">Description (optional)</label>
+                <Textarea 
+                  placeholder="Describe your project..." 
+                  value={newProjectDescription} 
+                  onChange={e => setNewProjectDescription(e.target.value)}
+                  rows={3}
+                />
+              </div>
+              <div className="space-y-2">
+                <label className="text-sm font-medium">Category (optional)</label>
+                <Input 
+                  placeholder="e.g., Technology, Education, Entertainment..." 
+                  value={newProjectCategory} 
+                  onChange={e => setNewProjectCategory(e.target.value)} 
+                />
+              </div>
+              <div className="flex justify-end gap-2">
+                <Button variant="outline" onClick={() => setIsCreateDialogOpen(false)}>
+                  Cancel
+                </Button>
+                <Button 
+                  onClick={handleCreateProject} 
+                  disabled={isCreating || !newProjectTitle.trim()}
+                >
+                  {isCreating ? (
+                    <>
+                      <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                      Creating...
+                    </>
+                  ) : (
+                    'Create Project'
+                  )}
+                </Button>
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
+      </div>
+
+      {/* Projects Grid/List */}
+      {projects.length === 0 ? (
+        <div className="text-center py-12">
+          <FileText className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
+          <h3 className="text-lg font-medium mb-2">No projects yet</h3>
+          <p className="text-muted-foreground mb-4">Create your first project to get started with content management.</p>
+          <Button onClick={() => setIsCreateDialogOpen(true)}>
+            <Plus className="h-4 w-4 mr-2" />
+            Create Your First Project
+          </Button>
+        </div>
+      ) : (
+        <div className={viewMode === "grid" 
+          ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" 
+          : "space-y-4"
+        }>
+          {projects.map((project) => (
+            <ProjectCard key={project.id} project={project} viewMode={viewMode} />
+          ))}
+        </div>
+      )}
+    </div>
+  );
 };
 export default ProjectsGrid;

@@ -1,43 +1,65 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { ChevronRight, Clock, FileText, TrendingUp } from "lucide-react";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { ChevronRight, Clock, FileText, TrendingUp, AlertCircle, Loader2 } from "lucide-react";
+import { useUsageStats } from "@/hooks/use-stats";
 
 const UsageStats = () => {
-  const stats = [
+  const { stats, loading, error } = useUsageStats();
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center p-8">
+        <Loader2 className="h-8 w-8 animate-spin" />
+        <span className="ml-2">Loading statistics...</span>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <Alert variant="destructive">
+        <AlertCircle className="h-4 w-4" />
+        <AlertDescription>{error}</AlertDescription>
+      </Alert>
+    );
+  }
+
+  if (!stats) {
+    return null;
+  }
+
+  const displayStats = [
     {
       title: "Topics Accepted",
-      value: "18",
-      change: "+2 from last month",
-      description: "",
+      value: stats.topicsAccepted.value.toString(),
+      change: stats.topicsAccepted.change,
       icon: FileText,
     },
     {
       title: "Avg Views Uplift",
-      value: "+28%",
-      change: "vs your baseline",
-      description: "",
+      value: stats.avgViewsUplift.value,
+      change: stats.avgViewsUplift.change,
       icon: TrendingUp,
     },
     {
       title: "Research Time Saved",
-      value: "4.2h",
-      change: "per accepted topic",
-      description: "",
+      value: stats.researchTimeSaved.value,
+      change: stats.researchTimeSaved.change,
       icon: Clock,
     },
     {
       title: "Total Views",
-      value: "1.2M",
-      change: "from suggested topics",
-      description: "",
+      value: stats.totalViews.value,
+      change: stats.totalViews.change,
       icon: TrendingUp,
     },
   ];
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-      {stats.map((stat, index) => {
+      {displayStats.map((stat, index) => {
         const Icon = stat.icon;
         const isPositive = stat.change.startsWith('+');
         const isNegative = stat.change.startsWith('-');
