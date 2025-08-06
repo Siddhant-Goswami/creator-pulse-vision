@@ -177,26 +177,37 @@ const SourcesTab = () => {
           </Card>
         ) : (
           <div className="grid gap-4">
-            {sources.map(source => {
-              const IconComponent = getSourceIcon(source.type, source.icon);
-              const formatRelativeTime = (dateString: string) => {
-                const date = new Date(dateString);
-                const now = new Date();
-                const diffInMs = now.getTime() - date.getTime();
-                const diffInMinutes = Math.floor(diffInMs / (1000 * 60));
-                const diffInHours = Math.floor(diffInMs / (1000 * 60 * 60));
-                const diffInDays = Math.floor(diffInMs / (1000 * 60 * 60 * 24));
-                
-                if (diffInMinutes < 60) {
-                  return `${diffInMinutes} minutes ago`;
-                } else if (diffInHours < 24) {
-                  return `${diffInHours} hours ago`;
-                } else if (diffInDays < 7) {
-                  return `${diffInDays} days ago`;
-                } else {
-                  return date.toLocaleDateString();
-                }
-              };
+// Move this helper out of the map—e.g. at the top of your component or file
+const formatRelativeTime = (dateString: string) => {
+  const date = new Date(dateString);
+  const now = new Date();
+  const diffInMs = now.getTime() - date.getTime();
+  const diffInMinutes = Math.floor(diffInMs / (1000 * 60));
+  const diffInHours = Math.floor(diffInMs / (1000 * 60 * 60));
+  const diffInDays = Math.floor(diffInMs / (1000 * 60 * 60 * 24));
+
+  if (diffInMinutes < 60) {
+    return `${diffInMinutes} minutes ago`;
+  } else if (diffInHours < 24) {
+    return `${diffInHours} hours ago`;
+  } else if (diffInDays < 7) {
+    return `${diffInDays} days ago`;
+  } else {
+    return date.toLocaleDateString();
+  }
+};
+
+// …later in your JSX…
+{sources.map(source => {
+  const IconComponent = getSourceIcon(source.type, source.icon);
+  // inline definition of formatRelativeTime has been removed
+  return (
+    <div key={source.id}>
+      <IconComponent />
+      <span>{formatRelativeTime(source.lastCrawled)}</span>
+    </div>
+  );
+})}
 
               const lastCrawledText = source.lastCrawled 
                 ? formatRelativeTime(source.lastCrawled)
